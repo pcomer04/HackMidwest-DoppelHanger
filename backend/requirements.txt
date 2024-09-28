@@ -1,0 +1,12 @@
+Django
+djangorestframework
+django-cors-headers     
+python-dotenv           
+requests
+pandas
+numpy
+Pillow
+tensorflow
+tqdm    
+torch
+openai-clip
