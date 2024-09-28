@@ -55,12 +55,10 @@
     margin-top: 1rem;
   }
   
-  .extra-options a {
-    color: rgba(255, 255, 255, 0.8);
+  .login-extra-options a {
+    color: rgba(255, 255, 255);
     text-decoration: none;
   }
   
-  .extra-options p {
-    margin: 0.5rem 0 0;
-  }
+
   
