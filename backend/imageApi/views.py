@@ -55,10 +55,18 @@ class SignUpView(APIView):
             "access": str(refresh.access_token)
         }, status=status.HTTP_201_CREATED)
         
-
+"""
+    POST
+    {
+        "user": "charlie",
+        "upload_time": "2024-09-28T12:34:56Z",
+        "uploaded_image": "QmZX9URubeKBth3fMkFzdVS74KGdG7Sm2ExghypmGuwMCb", 
+        "returned_image": "QmZX9URubeKBth3fMkFzdVS74KGdG7Sm2ExghypmGuwMC"
+    }
+"""
 
 class UploadView(APIView):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request):
@@ -92,7 +100,15 @@ class UploadView(APIView):
             image_obj.returned_image.add(*pinata_keys)
             """
             return Response({
-                "message": "added images"
+                "message": "succesfully uploaded and received hashes from pinata"
             }, status=201)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
+    
+    def get(self, request):
+        try:
+            images = Image.objects.filter(user=request.user)
+            serialized_images = ImageSerializer(images, many=True)
+            return Response(serialized_images.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=500)

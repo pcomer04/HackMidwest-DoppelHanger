@@ -24,4 +24,3 @@
 
 /backend/venv
 /backend/.env
-/backend/imageApi/pinata/__pycache__
