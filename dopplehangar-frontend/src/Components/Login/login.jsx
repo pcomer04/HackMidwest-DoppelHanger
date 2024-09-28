@@ -25,7 +25,7 @@ const Login = () => {
     <div className="login-container">
       <form onSubmit={handleSubmit} className="login-form">
         <h2>Login</h2>
-        <div className="input-group">
+        <div className="login-input-group">
           <label htmlFor="username">Username</label>
           <input
             type="username"
@@ -35,7 +35,7 @@ const Login = () => {
             required
           />
         </div>
-        <div className="input-group">
+        <div className="login-input-group">
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -45,7 +45,7 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit" className="btn">
+        <button type="submit" className="login-btn">
           Login
         </button>
         <div className="extra-options">
