@@ -8,9 +8,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'email']
 
 class ImageSerializer(serializers.ModelSerializer):
+    uploaded_image = serializers.StringRelatedField()  
+    returned_image = serializers.StringRelatedField(many=True)
+    
     class Meta:
         model = Image
-        fields = ['image', 'upload_time']
+        fields = ['uploaded_image', 'returned_image', 'upload_time']
 
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:
