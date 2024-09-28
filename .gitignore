@@ -24,3 +24,5 @@
 
 /backend/venv
 /backend/.env
+dq.sqlite3
+__pycache__/
