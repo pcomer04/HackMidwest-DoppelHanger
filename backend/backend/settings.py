@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'imageApi.apps.ImageApiConfig',
+    'imageApi.apps.ImageapiConfig',
     'rest_framework',
     'rest_framework_simplejwt',
     'django.contrib.admin',
