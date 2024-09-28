@@ -64,7 +64,7 @@ const Signup = () => {
         <div className="extra-options">
           
           <p>
-            Return to <a href="/"> Login </a> 
+            <a href="/"> <u>Already Registered?</u> </a> 
           </p>
         </div>
       </form>
