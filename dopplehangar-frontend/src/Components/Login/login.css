@@ -3,64 +3,62 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(45deg, #4b79a1, #283e51);
+    background-image: url(../../Assets/login-bg-image.svg);
   }
   
   .login-form {
-    background: rgba(0, 0, 0, 0.8);
+    background: #63BB9D 0% 0% no-repeat padding-box;
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 3px 6px #00000029;
     color: white;
     width: 100%;
     max-width: 400px;
     text-align: center;
   }
   
-  .input-group {
+  .login-input-group {
     margin-bottom: 1rem;
     text-align: left;
   }
   
-  .input-group label {
+  .login-input-group label {
     display: block;
     margin-bottom: 0.5rem;
     color: rgba(255, 255, 255, 0.8);
   }
   
-  .input-group input {
+  .login-input-group input {
     width: 100%;
     padding: 0.5rem;
     border-radius: 5px;
     border: 1px solid rgba(255, 255, 255, 0.5);
-    background: transparent;
-    color: white;
+    background: white;
+    color:#63BB9D;
   }
   
-  .btn {
+  .login-btn {
     padding: 0.75rem;
     width: 100%;
-    background-color: #4b79a1;
+    background-color:white;
     border: none;
-    color: white;
+    color:  #63BB9D;
     border-radius: 5px;
     cursor: pointer;
   }
   
-  .btn:hover {
-    background-color: #283e51;
+  .login-btn:hover {
+    background-color: #B8E0D8;
   }
   
   .extra-options {
     margin-top: 1rem;
   }
   
-  .extra-options a {
-    color: rgba(255, 255, 255, 0.8);
+  .login-extra-options a {
+    color: rgba(255, 255, 255);
     text-decoration: none;
   }
   
-  .extra-options p {
-    margin: 0.5rem 0 0;
-  }
+
   

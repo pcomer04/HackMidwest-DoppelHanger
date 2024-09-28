@@ -8,50 +8,22 @@
     height: 120px;
   }
   
-  .navbar-left .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #000; /* Set logo color to black */
-    text-decoration: none;
-  }
-  
-  .navbar-center .nav-links {
-    list-style-type: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar-center .nav-links li {
-    margin-right: 1rem;
-  }
-  
-  .navbar-center .nav-links a {
-    color: #000; /* Set nav link color to black */
-    text-decoration: none;
-  }
-  
-  .navbar-right {
+  .navbar-left, .navbar-right {
     display: flex;
     align-items: center;
   }
   
-  .navbar-right .cart-icon,
-  .navbar-right .user-icon {
-    color: #000; /* Set icon color to black */
-    text-decoration: none;
-    margin-left: 1rem;
-    position: relative;
+  .navbar-left .logo img {
+    width: 410px;
+    height: 75px;
+  } 
+
+  .navbar-right a {
+    margin-left: 60px;
+    color: #63BB9D;
+    font-weight: bold;
+    font-size: 30px;
   }
+
   
-  .navbar-right .cart-count {
-    background-color: #f44336;
-    color: #fff;
-    border-radius: 50%;
-    padding: 0.2rem 0.5rem;
-    font-size: 0.8rem;
-    position: absolute;
-    top: -0.5rem;
-    right: -0.5rem;
-  }
   
