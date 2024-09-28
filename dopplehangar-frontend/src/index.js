@@ -4,9 +4,11 @@ import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import Login from './Components/Login/login'
+import Signup from './Components/Signup/signup';
 
 export{
-  Login
+  Login,
+  Signup,
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
