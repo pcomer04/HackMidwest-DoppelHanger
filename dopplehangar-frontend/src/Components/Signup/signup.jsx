@@ -61,6 +61,12 @@ const Signup = () => {
         <button type="submit" className="btn">
           Register
         </button>
+        <div className="extra-options">
+          
+          <p>
+            Return to <a href="/"> Login </a> 
+          </p>
+        </div>
       </form>
     </div>
   );

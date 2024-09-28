@@ -3,18 +3,18 @@ import { login } from "../../API/login-api";
 import "./login.css";
 
 const Login = () => {
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
   
     const handleSubmit = async (event) => {
       event.preventDefault();
   
       try {
-        const data = await login(email, password);
+        const data = await login(username, password);
         console.log("Success:", data);
   
         // Reset the form inputs
-        setEmail("");
+        setUsername("");
         setPassword("");
       } catch (error) {
         console.error("Error:", error);
@@ -26,12 +26,12 @@ const Login = () => {
       <form onSubmit={handleSubmit} className="login-form">
         <h2>Login</h2>
         <div className="input-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="username">Username</label>
           <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="username"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
@@ -49,7 +49,6 @@ const Login = () => {
           Login
         </button>
         <div className="extra-options">
-          
           <p>
             Don't have an account? <a href="/signup">Sign up</a>
           </p>
