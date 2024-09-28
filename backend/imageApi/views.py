@@ -8,12 +8,18 @@ from .serializers import ImageSerializer, UserSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 
+"""
+{
+    "username": "newuser",
+    "password": "securepassword123"
+}
+"""
+
 class LoginView(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-        user = User.objects.filter(username).first()
-
+        user = User.objects.get(username=username)
         if user and user.check_password(password):
             refresh_token = RefreshToken.for_user(user)
             return Response({
@@ -40,7 +46,7 @@ class SignUpView(APIView):
         if User.objects.filter(username=username).exists():
             return Response({"error": "username already exists"}, status=status.HTTP_400_BAD_REQUEST)
         
-        user = User.objects.create(username=username, email=email, password=password)
+        user = User.objects.create_user(username=username, email=email, password=password)
         refresh = RefreshToken.for_user(user)
         return Response({
             "message": "user created successfully",
