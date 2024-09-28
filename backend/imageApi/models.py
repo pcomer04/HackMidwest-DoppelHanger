@@ -10,7 +10,7 @@ class PinataKey(models.Model):
 class Image(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     upload_time = models.DateTimeField(auto_now_add=True)
-    uploaded_image = models.OneToOneField(PinataKey, related_name="original_pinata_key", null=True)
+    uploaded_image = models.OneToOneField(PinataKey, related_name="original_pinata_key", null=True, on_delete=models.CASCADE)
     returned_image = models.ManyToManyField(PinataKey, related_name="processed_pinata_key", null=True)
 
     def __str__(self):

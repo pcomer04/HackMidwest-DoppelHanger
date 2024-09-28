@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
-        fields = ['image', 'upload_time']
+        fields = ['uploaded_image', 'returned_image', 'upload_time']
 
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:
