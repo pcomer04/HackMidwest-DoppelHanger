@@ -8,3 +8,5 @@ numpy
 Pillow
 tensorflow
 tqdm    
+torch
+openai-clip
