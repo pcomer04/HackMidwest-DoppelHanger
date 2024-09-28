@@ -1,0 +1,22 @@
+
+# dependencies
+/dopplehangar-frontend/node_modules
+/dopplehangar-frontend/.pnp
+/dopplehangar-frontend/.pnp.js
+
+# testing
+/dopplehangar-frontend/coverage
+
+# production
+/dopplehangar-frontend/build
+
+# misc
+/dopplehangar-frontend/.DS_Store
+/dopplehangar-frontend/.env.local
+/dopplehangar-frontend/.env.development.local
+/dopplehangar-frontend/.env.test.local
+/dopplehangar-frontend/.env.production.local
+
+/dopplehangar-frontend/npm-debug.log*
+/dopplehangar-frontend/yarn-debug.log*
+/dopplehangar-frontend/yarn-error.log*
