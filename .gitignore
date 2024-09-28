@@ -20,3 +20,5 @@
 /dopplehangar-frontend/npm-debug.log*
 /dopplehangar-frontend/yarn-debug.log*
 /dopplehangar-frontend/yarn-error.log*
+
+/backend/venv
