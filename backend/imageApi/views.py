@@ -38,7 +38,6 @@ class LoginView(APIView):
 """
 class SignUpView(APIView):
     def post(self, request):
-        print(request.data)
         username = request.data.get('username')
         email = request.data.get('email')
         password = request.data.get('password')
@@ -66,7 +65,7 @@ class SignUpView(APIView):
 """
 
 class UploadView(APIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request):
@@ -77,11 +76,10 @@ class UploadView(APIView):
             # Call the function to upload to Pinata
 
             # TODO: preprocess image
-
             original_img_cid = uploadToPinata(image_file)
             original_key = PinataKey.objects.create(value=original_img_cid)
+            #image_obj = Image.objects.create(user=request.user, uploaded_image=original_key)
             image_obj = Image.objects.create(user=request.user, uploaded_image=original_key)
-
             # send image to AI model and get images back
             # send images to pinata
             # image_obj.returned_image.add(key)
@@ -107,6 +105,7 @@ class UploadView(APIView):
     
     def get(self, request):
         try:
+            #images = Image.objects.filter(user=request.user)
             images = Image.objects.filter(user=request.user)
             serialized_images = ImageSerializer(images, many=True)
             return Response(serialized_images.data, status=status.HTTP_200_OK)
