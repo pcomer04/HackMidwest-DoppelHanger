@@ -5,10 +5,14 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import Login from './Components/Login/login'
 import Signup from './Components/Signup/signup';
+import Home from './Components/Home/home';
+import Upload from './Components/Upload/upload';
 
 export{
   Login,
   Signup,
+  Home,
+  Upload
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

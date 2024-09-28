@@ -50,7 +50,7 @@ const Login = () => {
         </button>
         <div className="extra-options">
           <p>
-            Don't have an account? <a href="/signup">Sign up</a>
+            Don't have an account? <a href="/signup"><u>Sign up</u></a>
           </p>
         </div>
       </form>
