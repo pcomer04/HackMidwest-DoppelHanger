@@ -10,3 +10,4 @@ tensorflow
 tqdm    
 torch
 openai-clip
+torchvision

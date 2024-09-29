@@ -8,6 +8,7 @@ from .serializers import ImageSerializer, UserSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from .pinata.pinataUpload import uploadToPinata
+from .matching.image_compare import compare_image
 
 """
 {
@@ -74,39 +75,39 @@ class UploadView(APIView):
             return Response({"error": "no image uploaded"}, status=400)
         try:
             # Call the function to upload to Pinata
-
-            # TODO: preprocess image
             original_img_cid = uploadToPinata(image_file)
             original_key = PinataKey.objects.create(value=original_img_cid)
-            #image_obj = Image.objects.create(user=request.user, uploaded_image=original_key)
-            image_obj = Image.objects.create(user=request.user, uploaded_image=original_key)
-            # send image to AI model and get images back
-            # send images to pinata
-            # image_obj.returned_image.add(key)
-
-            """
+            image_obj = Image.objects.create(uploaded_image=original_key)
             
-            processed_images_cids = process_image(original_img_cid)  # Replace with your actual AI processing function
-
-            # Step 4: Upload processed images to Pinata and associate with Image object
-            pinata_keys = []  # This will hold the created PinataKey objects
-            for cid in processed_images_cids:
-                pinata_key = PinataKey.objects.create(key=cid)  # Create a new PinataKey object for each CID
+            #image_obj = Image.objects.create(user=request.user, uploaded_image=original_key)
+            # send image to AI model and get images back
+            processed_images = compare_image(image_file)
+            pinata_keys = []
+            for img, prob in processed_images.items():
+                processed_img_cid = uploadToPinata(img)
+                pinata_key = PinataKey.objects.create(value=processed_img_cid)
                 pinata_keys.append(pinata_key)
-
-            # Step 5: Add all the PinataKey objects to the returned_image field
             image_obj.returned_image.add(*pinata_keys)
-            """
+
             return Response({
                 "message": "succesfully uploaded and received hashes from pinata"
             }, status=201)
         except Exception as e:
             return Response({"error": str(e)}, status=500)
-    
+    """
+    {
+        "uploaded_image": "QmchFNsVMZobDKZ6YgGoLS5A4gxR9SK2UkkKGYjxZgUrHZ",
+        "returned_image": [
+            "QmRETZeSWNvkzeQ1vuaiAwi7tWf2B1bbhf15gfRZPp9cTg",
+            "QmcSnP2W5ootVtDgpUjz7KzYeVMPXWHmbw9A53L2y9cCvu",
+            "QmPTZTXP6qFacaCtixbYy1cBGPA5vVtCu2dWhJgRqbCqFS"
+        ],
+        "upload_time": "2024-09-29T02:40:53.134334Z"
+    }
+    """
     def get(self, request):
         try:
-            #images = Image.objects.filter(user=request.user)
-            images = Image.objects.filter(user=request.user)
+            images = Image.objects.filter()
             serialized_images = ImageSerializer(images, many=True)
             return Response(serialized_images.data, status=status.HTTP_200_OK)
         except Exception as e:
