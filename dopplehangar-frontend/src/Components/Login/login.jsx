@@ -1,25 +1,28 @@
 import React, { useState } from "react";
 import { login } from "../../API/login-api";
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-  
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-  
-      try {
-        const data = await login(username, password);
-        console.log("Success:", data);
-  
-        // Reset the form inputs
-        setUsername("");
-        setPassword("");
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const data = await login(username, password);
+      console.log("Success:", data);
+
+      // Reset the form inputs
+      setUsername("");
+      setPassword("");
+      navigate("/");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div className="login-container">
@@ -50,7 +53,9 @@ const Login = () => {
         </button>
         <div className="login-extra-options">
           <p>
-          <a href="/signup"><u>Don't have an account? Sign up</u></a>
+            <a href="/signup">
+              <u>Don't have an account? Sign up</u>
+            </a>
           </p>
         </div>
       </form>
