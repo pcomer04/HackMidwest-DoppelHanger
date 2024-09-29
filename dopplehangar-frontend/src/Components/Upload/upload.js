@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { imageUpload } from "../../API/image-api";
-import Navbar  from "../Navbar/navbar";
+import Navbar from "../Navbar/navbar";
 import "./upload.css";
+import uploadSymbol from "../../Assets/upload-symbol-2.svg";
 
 const Upload = () => {
   const [image, setImage] = useState(null);
@@ -26,7 +27,7 @@ const Upload = () => {
       const data = await imageUpload(image);
       console.log("Success:", data);
       alert("File uploaded successfully!");
-      setImage(null); // Reset the file input
+      setImage(null);
     } catch (error) {
       console.error("Error:", error);
       alert("File upload failed.");
@@ -35,21 +36,22 @@ const Upload = () => {
 
   return (
     <div className="upload-page">
-    <Navbar />
-    <div className="image-container">
-      <form onSubmit={handleSubmit} className="image-form">
-        <div className="input-group">
-          <label htmlFor="fileInput">Upload JPG Image:</label>
+      <Navbar />
+      <div className="image-container">
+        <form onSubmit={handleSubmit} className="image-form">
           <input
             type="file"
             id="fileInput"
             accept="image/jpeg"
             onChange={handleFileChange}
+            style={{ display: "none" }}
           />
-        </div>
-        <button type="submit">Upload</button>
-      </form>
-    </div>
+          <label htmlFor="fileInput" className="upload-label">
+            <img src={uploadSymbol} alt="Upload" className="upload-symbol" />
+            <p>Drag Your Photo Here</p>
+          </label>
+        </form>
+      </div>
     </div>
   );
 };
