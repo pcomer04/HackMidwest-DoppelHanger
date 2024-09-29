@@ -2,8 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { signup } from "../../API/signup-api";
 import "./signup.css";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const  navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +21,7 @@ const Signup = () => {
       setEmail("");
       setUsername("");
       setPassword("");
+      navigate("/login");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -64,7 +67,7 @@ const Signup = () => {
         <div className="extra-options">
           
           <p>
-            <a href="/"> <u>Already Registered?</u> </a> 
+            <a href="/login"> <u>Already Registered?</u> </a> 
           </p>
         </div>
       </form>

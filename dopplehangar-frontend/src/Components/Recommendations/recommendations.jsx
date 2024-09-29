@@ -14,13 +14,13 @@ const Recommendations = () => {
             <button type="submit" /*todo add on click */>Add to Gallery</button>
         </div>
         <div className="recommended-outfits1">
-            <p className="recommendation-display">Recommended Outfit #1</p>
+            <p className="recommendation-display-text">Recommended Outfit #1</p>
         </div>
         <div className="recommended-outfits2">
-        <p className="recommendation-display">Recommended Outfit #2</p>
+        <p className="recommendation-display-text">Recommended Outfit #2</p>
         </div>
         <div className="recommended-outfits3">
-        <p className="recommendation-display">Recommended Outfit #3</p>
+        <p className="recommendation-display-text">Recommended Outfit #3</p>
         </div>
     </div>
     </div>
