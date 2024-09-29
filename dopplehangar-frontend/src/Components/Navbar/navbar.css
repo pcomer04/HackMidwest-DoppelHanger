@@ -6,6 +6,7 @@
     color: #000; /* Set text color to black */
     padding: 1rem;
     height: 120px;
+    width: 100%;
   }
   
   .navbar-left, .navbar-right {
