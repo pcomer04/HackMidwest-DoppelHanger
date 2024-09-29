@@ -1,42 +1,37 @@
+# image_comparer.py
+
 import torch
 import clip
-from PIL import Image
-import os
+import pickle
 import itertools
-import torch.nn as nn
+from PIL import Image
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
-print(device)
-
-dataset_folder = './dataset/'
-
-
 def compare_image(input_image_path):
-    # Load and preprocess the input image
+    # Preprocess and encode the input image
     input_image = preprocess(Image.open(input_image_path)).unsqueeze(0).to(device)
     input_image_features = model.encode_image(input_image)
 
-    images = []
-    for root, dirs, files in os.walk(dataset_folder):
-        for file in files:
-            if file.endswith(('jpg', 'jpeg')):
-                images.append(root + '/' + file)
-
     result = {}
-    for img in images:
-        with torch.no_grad():
-            image_preprocess = preprocess(Image.open(img)).unsqueeze(0).to(device)
-            image_features = model.encode_image(image_preprocess)
-            cos = torch.nn.CosineSimilarity(dim=0)
-            sim = cos(image_features[0], input_image_features[0]).item()
-            sim = (sim + 1) / 2
-            result[img] = sim
+    # Load and compare the encoded images one by one
+    with open('encoded_images.pkl', 'rb') as f:
+        try:
+            while True:
+                img_path, encoded_image = pickle.load(f)
+                cos = torch.nn.CosineSimilarity(dim=0)
+                sim = cos(encoded_image[0], input_image_features[0]).item()
+                sim = (sim + 1) / 2  # Normalize the similarity to [0, 1]
+                result[img_path] = sim
+        except EOFError:
+            pass
 
-    sorted_value = sorted(result.items(), key=lambda x: x[1], reverse=True)
-    sorted_res = dict(sorted_value)
+    # Sort the results by similarity
+    sorted_results = sorted(result.items(), key=lambda x: x[1], reverse=True)
 
-    top_3 = dict(itertools.islice(sorted_res.items(), 3))
+    # Get the top 3 results
+    top_3 = dict(itertools.islice(sorted_results, 3))
 
     return top_3
+
