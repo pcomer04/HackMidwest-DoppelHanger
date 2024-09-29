@@ -18,18 +18,16 @@ const Login = () => {
       const data = await login(username, password);
       console.log("Success:", data.user_id);
       console.log("Logged in as: ", data.username);
-      // Store userId and username in localStorage
+
       localStorage.setItem('userId', data.user_id);
       localStorage.setItem('username', data.username);
 
-      // Dispatch the loginSuccess action to Redux
+
       dispatch(loginSuccess(data.user_id, data.username));
 
-      // Reset the form inputs
       setUsername("");
       setPassword("");
 
-      // Navigate to the homepage
       navigate("/");
     } catch (error) {
       console.error("Error:", error);

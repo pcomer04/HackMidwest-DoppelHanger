@@ -3,9 +3,11 @@ import { imageUpload } from "../../API/image-api";
 import Navbar from "../Navbar/navbar";
 import "./upload.css";
 import uploadSymbol from "../../Assets/upload-symbol-2.svg";
+import loading from "../../Assets/loading-screen.gif"; 
 
 const Upload = () => {
   const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -23,6 +25,8 @@ const Upload = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
       const data = await imageUpload(image);
       console.log("Success:", data);
@@ -31,6 +35,8 @@ const Upload = () => {
     } catch (error) {
       console.error("Error:", error);
       alert("File upload failed.");
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -51,6 +57,13 @@ const Upload = () => {
             <p>Drag Your Photo Here</p>
           </label>
         </form>
+
+        {loading && (
+          <div className="loading">
+            <img src={loading} alt="Loading..." className="loading-spinner" />
+            <p>Uploading...</p>
+          </div>
+        )}
       </div>
     </div>
   );
