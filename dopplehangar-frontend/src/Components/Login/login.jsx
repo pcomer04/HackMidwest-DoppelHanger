@@ -21,6 +21,7 @@ const Login = () => {
 
       localStorage.setItem('userId', data.user_id);
       localStorage.setItem('username', data.username);
+      localStorage.setItem('token', data.access);
 
 
       dispatch(loginSuccess(data.user_id, data.username));

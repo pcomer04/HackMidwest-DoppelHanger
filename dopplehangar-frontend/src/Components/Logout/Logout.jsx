@@ -9,7 +9,7 @@ const Logout = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem("userId", "username");
+        localStorage.removeItem("userId", "username", "token");
         dispatch(logout());
         navigate("/");
     }

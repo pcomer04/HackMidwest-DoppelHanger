@@ -24,9 +24,12 @@ class LoginView(APIView):
         password = request.data.get('password')
         user = User.objects.filter(username=username).first()
         if user and user.check_password(password):
-            return Response({
-                'user_id': (user.id),
-                'username': (user.username),
+            refresh = RefreshToken.for_user(user)
+            return JsonResponse({
+                'user_id': user.id,
+                'username': user.username,
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
             })
         return Response({'error': 'invalid credentials'}, status=400)
 """
@@ -70,16 +73,21 @@ class UploadView(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request):
+        user = request.user
+        if not user.is_authenticated:
+            return Response({"error": "User is not authenticated"}, status=401)
         image_file = request.FILES.get('image')
         if not image_file:
+            print("no file")
             return Response({"error": "no image uploaded"}, status=400)
         try:
+            print("----------")
+            print(request.user)
             # Call the function to upload to Pinata
             original_img_cid = uploadToPinata(image_file)
             original_key = PinataKey.objects.create(value=original_img_cid)
-            image_obj = Image.objects.create(uploaded_image=original_key)
             
-            #image_obj = Image.objects.create(user=request.user, uploaded_image=original_key)
+            image_obj = Image.objects.create(user=request.user, uploaded_image=original_key)
             # send image to AI model and get images back
             processed_images = compare_image(image_file)
             pinata_keys = []
@@ -107,7 +115,7 @@ class UploadView(APIView):
     """
     def get(self, request):
         try:
-            images = Image.objects.filter()
+            images = Image.objects.filter(user_id=12)
             serialized_images = ImageSerializer(images, many=True)
             return Response(serialized_images.data, status=status.HTTP_200_OK)
         except Exception as e:
