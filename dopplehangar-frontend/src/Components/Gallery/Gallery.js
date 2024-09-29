@@ -1,58 +1,47 @@
-// src/components/Gallery/Gallery.js
-
-import React, { useState } from 'react';
-import Navbar from '../Navbar/navbar'; // Adjusted import path to match folder structure
-import './Gallery.css';
+import React, { useState } from "react";
+import Navbar from "../Navbar/navbar";
+import "./Gallery.css";
 
 const Gallery = () => {
-  // Initialize with two rows
-  const [imageRows, setImageRows] = useState([{}, {}]);
+  const [imageUrls, setImageUrls] = useState([]);
 
-  const addImageRow = () => {
-    setImageRows([...imageRows, {}]);
-  };
-
-  const handleImageChange = (e, rowIndex, imgIndex) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const updatedRows = [...imageRows];
-        updatedRows[rowIndex] = {
-          ...updatedRows[rowIndex],
-          [imgIndex]: reader.result,
-        };
-        setImageRows(updatedRows);
-      };
-      reader.readAsDataURL(file);
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type === "image/jpeg") {
+      const url = URL.createObjectURL(file);
+      setImageUrls([...imageUrls, url]);
+    } else {
+      alert("Please upload a JPG image.");
     }
   };
 
   return (
-    <div className="gallery-container">
-      {/* Navbar added without any changes */}
+    <div className="gallery-page">
       <Navbar />
-      {/* Gallery Section */}
-      <div className="explanation-section">
-        <div className="box-container">
-          {imageRows.map((row, rowIndex) => (
-            <div key={rowIndex} className="image-row">
-              {[0, 1, 2].map((imgIndex) => (
-                <div key={imgIndex} className="image-placeholder">
-                  {row[imgIndex] ? (
-                    <img
-                      src={row[imgIndex]}
-                      alt={`Gallery ${rowIndex + 1}-${imgIndex + 1}`}
-                      className="uploaded-image"
-                    />
-                  ) : (
-                    <div className="empty-placeholder" />
-                  )}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+      <div className="image-container">
+        <form className="image-form">
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/jpeg"
+            onChange={handleImageChange}
+            style={{ display: "none" }}
+          />
+          <label htmlFor="fileInput" className="upload-label">
+            <div className="upload-symbol-placeholder">+</div>
+            <p>Add an Image to the Gallery</p>
+          </label>
+        </form>
+      </div>
+
+      <div className="gallery-section">
+        {imageUrls.length > 0 ? (
+          imageUrls.map((url, index) => (
+            <img key={index} src={url} alt={`Uploaded ${index}`} className="gallery-image" />
+          ))
+        ) : (
+          <p>No images uploaded yet.</p>
+        )}
       </div>
     </div>
   );
