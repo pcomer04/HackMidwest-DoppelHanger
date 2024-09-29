@@ -7,7 +7,7 @@ const Navbar = () => {
 
 <nav className="navbar">
   <div className="navbar-left">
-    <a href='/home' className ="logo"><img src={logo} alt="logo" /></a>
+    <a href='/' className ="logo"><img src={logo} alt="logo" /></a>
   </div>
 
   <div className="navbar-right">

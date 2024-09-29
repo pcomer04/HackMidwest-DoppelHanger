@@ -7,12 +7,15 @@ import Login from './Components/Login/login'
 import Signup from './Components/Signup/signup';
 import Home from './Components/Home/home';
 import Upload from './Components/Upload/upload';
+import Gallery from './Components/Gallery/Gallery';
+
 
 export{
   Login,
   Signup,
   Home,
-  Upload
+  Upload,
+  Gallery
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
