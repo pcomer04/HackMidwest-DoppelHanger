@@ -1,3 +1,5 @@
+# url_to_jpg.py
+
 import os
 import pandas as pd
 import requests
@@ -6,7 +8,7 @@ from io import BytesIO
 
 # Read the CSV file and get the URLs
 df = pd.read_csv('OUT.csv')
-urls = df.iloc[:, 18].tolist()[:1000]  # Now reading from column 19 and only taking the first 1000 URLs
+urls = df.iloc[:, 18].tolist()[:5000]  # Now reading from column 19 and only taking the first 5000 URLs
 
 # Create the dataset directory if it doesn't exist
 if not os.path.exists('dataset'):

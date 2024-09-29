@@ -11,6 +11,8 @@ from rest_framework import status
 from .pinata.pinataUpload import uploadToPinata
 from .matching.image_compare import compare_image
 import os
+from django.conf import settings
+
 
 """
 {
@@ -82,8 +84,6 @@ class UploadView(APIView):
             print("no file")
             return Response({"error": "no image uploaded"}, status=400)
         try:
-            print("----------")
-            print(request.user)
             # Call the function to upload to Pinata
             original_img_cid = uploadToPinata(image_file)
             original_key = PinataKey.objects.create(value=original_img_cid)
@@ -94,12 +94,15 @@ class UploadView(APIView):
             keys = []
             for img, prob in processed_images.items():
                 processed_img_cid = ''
-                img_file_path = os.path.join("matching", "dataset", img)  # Corrected this line to use `img`
-                
+                img = img[2:]
+                print("-----")
+                print(img)
+                img_file_path = os.path.join(settings.BASE_DIR, 'imageApi', 'matching', img)
+
                 try:
                     with open(img_file_path, 'rb') as img_file:
                         processed_img_cid = uploadToPinata(img_file)  # Ensure this function handles the file correctly
-
+                    print("HERE")
                     # Create a PinataKey object with the returned CID
                     pinata_key = PinataKey.objects.create(value=processed_img_cid)
                     keys.append(pinata_key)
@@ -132,7 +135,7 @@ class UploadView(APIView):
     """
     def get(self, request):
         try:
-            images = Image.objects.filter().all().order_by('-upload_time')[:1]
+            images = Image.objects.filter(user_id=request.user.id).all().order_by('-upload_time')[:1]
             serialized_images = ImageSerializer(images, many=True)
             return Response(serialized_images.data, status=status.HTTP_200_OK)
         except Exception as e:
