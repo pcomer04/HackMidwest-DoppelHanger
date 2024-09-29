@@ -8,13 +8,15 @@ import Signup from './Components/Signup/signup';
 import Home from './Components/Home/home';
 import Upload from './Components/Upload/upload';
 import Recommendations from './Components/Recommendations/recommendations';
+import Gallery from './Components/Gallery/Gallery';
 
 export{
   Login,
   Signup,
   Home,
   Upload,
-  Recommendations
+  Recommendations,
+  Gallery,
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
