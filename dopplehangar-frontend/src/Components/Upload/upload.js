@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { imageUpload } from "../../API/image-api";
+import { pinataUpload } from "../../API/image-api";  // Import the Pinata upload function
 import Navbar from "../Navbar/navbar";
 import "./upload.css";
 import uploadSymbol from "../../Assets/upload-symbol-2.svg";
@@ -7,30 +7,21 @@ import uploadSymbol from "../../Assets/upload-symbol-2.svg";
 const Upload = () => {
   const [image, setImage] = useState(null);
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file && file.type === "image/jpeg") {
       setImage(file);
+
+      try {
+        const data = await pinataUpload(file);  // Trigger upload immediately
+        console.log("Upload Success");
+        console.log("File uploaded to IPFS:", data);  // Optional: log the IPFS data for debugging
+      } catch (error) {
+        console.error("Error during upload:", error);
+        alert("File upload failed.");
+      }
     } else {
       alert("Please upload a JPG file.");
-    }
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!image) {
-      alert("No file selected.");
-      return;
-    }
-
-    try {
-      const data = await imageUpload(image);
-      console.log("Success:", data);
-      alert("File uploaded successfully!");
-      setImage(null);
-    } catch (error) {
-      console.error("Error:", error);
-      alert("File upload failed.");
     }
   };
 
@@ -38,12 +29,12 @@ const Upload = () => {
     <div className="upload-page">
       <Navbar />
       <div className="image-container">
-        <form onSubmit={handleSubmit} className="image-form">
+        <form className="image-form">
           <input
             type="file"
             id="fileInput"
             accept="image/jpeg"
-            onChange={handleFileChange}
+            onChange={handleFileChange} // Trigger upload on file selection
             style={{ display: "none" }}
           />
           <label htmlFor="fileInput" className="upload-label">
