@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const Navbar = () => {
   const user = useSelector((state) => state.user); 
-
+  const user_id = localStorage.getItem('userId')
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -16,9 +16,8 @@ const Navbar = () => {
 
       <div className="navbar-right">
         <a href='/gallery' className="gallery">Gallery</a>
-
-        {user ? (
-          <span className="username">Welcome, {user.username}</span> 
+        {user_id ? (
+          <a className="login">{localStorage.getItem('username')}</a> 
         ) : (
           <a href='/login' className="login">Login</a> 
         )}
