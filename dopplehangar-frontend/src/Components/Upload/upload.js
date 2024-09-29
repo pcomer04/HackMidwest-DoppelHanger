@@ -7,13 +7,24 @@ import uploadSymbol from "../../Assets/upload-symbol-2.svg";
 const Upload = () => {
   const [image, setImage] = useState(null);
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file && file.type === "image/jpeg") {
       setImage(file);
     } else {
       alert("Please upload a JPG file.");
     }
+
+    try {
+      const data = await imageUpload(image);
+      console.log("Success:", data);
+      alert("File uploaded successfully!");
+      setImage(null);
+    } catch (error) {
+      console.error("Error:", error);
+      alert("File upload failed.");
+    }
+
   };
 
   const handleSubmit = async (event) => {
