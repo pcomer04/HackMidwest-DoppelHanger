@@ -34,6 +34,8 @@ DoppelHanger
 <br /><br />
 ## What does your app do?
 *Describe in a paragraph or so*
+Our app is a stylist assistant that allows users to upload images to our website. The image is then processes by our AI model which finds the similarity between the user's image and images in our database. Outfits with the highest levels of similarity are displayed to the user.
+
 
 <br /><br />
 
