@@ -2,22 +2,26 @@ import React, { useState } from "react";
 import { login } from "../../API/login-api";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch} from 'react-redux';
 
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const data = await login(username, password);
-      console.log("Success:", data);
+      console.log("Success:", data.userId);
 
       // Reset the form inputs
       setUsername("");
       setPassword("");
+      dispatch(login(data.userId,data.username));
       navigate("/");
     } catch (error) {
       console.error("Error:", error);
