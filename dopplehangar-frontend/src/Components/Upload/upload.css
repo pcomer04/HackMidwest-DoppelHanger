@@ -1,31 +1,61 @@
+/* src/components/Upload/upload.css */
+
+.upload-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(45deg, #4b79a1, #283e51);
-  }
-  
-  .image-form {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    color: white;
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  .input-group {
-      margin-bottom: 1rem;
-      text-align: left;
-    }
-  
-  .image-container h1 {
-      text-align: center;
-      position: flex;
-      
-  }
-  
+  display: flex;
+  padding: 10%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: #dcefee;
+  width: 100%;
+}
+
+.image-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.upload-symbol {
+  width: 250px;
+  height: 250px;
+  margin-bottom: 15px;
+}
+
+.upload-label p {
+  font-size: 50px;
+  font-weight: bold;
+  color: #b8e0d8;
+}
+
+.upload-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 32px;
+  font-weight: bold;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upload-btn:hover {
+  background-color: #555;
+}
