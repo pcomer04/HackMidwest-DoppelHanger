@@ -17,7 +17,7 @@ const Navbar = () => {
       <div className="navbar-right">
         <a href='/gallery' className="gallery">Gallery</a>
         {user_id ? (
-          <a className="login">{localStorage.getItem('username')}</a> 
+          <a className="login" href='/logout'>{localStorage.getItem('username')}</a> 
         ) : (
           <a href='/login' className="login">Login</a> 
         )}

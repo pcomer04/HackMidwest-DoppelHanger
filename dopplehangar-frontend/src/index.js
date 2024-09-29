@@ -9,6 +9,7 @@ import Home from './Components/Home/home';
 import Upload from './Components/Upload/upload';
 import Recommendations from './Components/Recommendations/recommendations';
 import Gallery from './Components/Gallery/Gallery';
+import Logout from './Components/Logout/Logout';
 
 export{
   Login,
@@ -17,6 +18,7 @@ export{
   Upload,
   Recommendations,
   Gallery,
+  Logout,
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

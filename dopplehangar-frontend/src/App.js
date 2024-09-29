@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Login, Signup, Home, Upload, Recommendations, Gallery } from "./index";
+import { Login, Signup, Home, Upload, Recommendations, Gallery, Logout } from "./index";
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -15,6 +15,7 @@ function App() {
           <Route path="/upload" element={<Upload />} />
           <Route path="recommendations" element={<Recommendations />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </Router>
     </Provider>
