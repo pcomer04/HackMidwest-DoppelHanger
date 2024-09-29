@@ -49,6 +49,25 @@ DoppelHanger
 - [ ]  USDA Challenge
 - [ ]  brAIn Rot Challenge
 
+# requirements
+1. install libraries:
+   - pip install torchvision
+   - pip install torch
+   - pip install openai-clip
+   - pip install pillow
+2. in the clip.py file, replace:
+```
+with urllib.request.urlopen(url) as source, open(download_target, "wb") as output:
+```
+with:
+
+```
+import ssl 
+context = ssl._create_unverified_context()
+with urllib.request.urlopen(url, context=context) as source, open(download_target, "wb") as output:
+```
+
+ 
 
 <br /><br />
 >>>>>>> 505a0394d1c0e6dcb555aa53ea0e3bb120a9bf24
