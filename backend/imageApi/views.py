@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http import JsonResponse
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
@@ -23,10 +24,9 @@ class LoginView(APIView):
         password = request.data.get('password')
         user = User.objects.filter(username=username).first()
         if user and user.check_password(password):
-            refresh_token = RefreshToken.for_user(user)
             return Response({
-                'refresh': str(refresh_token),
-                'access': str(refresh_token.access_token)
+                'user_id': (user.id),
+                'username': (user.username),
             })
         return Response({'error': 'invalid credentials'}, status=400)
 """

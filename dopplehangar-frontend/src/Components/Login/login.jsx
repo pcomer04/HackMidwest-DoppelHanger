@@ -16,7 +16,7 @@ const Login = () => {
 
     try {
       const data = await login(username, password);
-      console.log("Success:", data.userId);
+      console.log("Success:", data.user_id);
 
       // Store userId and username in localStorage
       localStorage.setItem('userId', data.userId);
