@@ -11,53 +11,33 @@ const ImageDisplay = ({ cid }) => {
     console.log("CID received:", cid);
     
     const fetchImage = async () => {
-      if (!cid) {
-        console.error("CID is required");
-        setLoading(false);
-        return;
-      }
+   if (!cid) {
+     console.error("CID is required");
+     setLoading(false);
+     return;
+   }
 
-      try {
-        // First, we'll check if the file exists and get its details
-        const response = await fetch(`https://api.pinata.cloud/data/pinList?status=pinned&hashContains=${cid}`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${JWT}`
-          }
-        });
+   try {
+     // Construct the URL directly
+     const url = `https://ipfs.io/ipfs/${cid}`;
+     console.log("Created URL:", url);
+     
+     // Set the image URL directly without the extra fetch
+     setImageUrl(url);
+   } catch (error) {
+     console.error("Error fetching image:", error);
+     setError(error.message || "An error occurred while fetching the image");
+   } finally {
+     setLoading(false);
+   }
+ };
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log("Pinata API response:", data);
-
-        if (data.rows.length > 0) {
-          // If the file exists, we'll construct the URL
-          console.log("CID", cid);
-          const url = `https://ipfs.io/ipfs/${cid}`;
-          console.log("Created URL:", url);
-          
-          // We'll set the image URL without trying to fetch it directly
-          setImageUrl(url);
-        } else {
-          setError("File not found in Pinata");
-        }
-      } catch (error) {
-        console.error("Error fetching image details:", error);
-        setError(error.message || "An error occurred while fetching the image details");
-      } finally {
-        setLoading(false);
-      }
-    };
 
     fetchImage();
   }, [cid]);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>IPFS Image Viewer</h1>
+    <div >
       {loading ? (
         <p>Loading image...</p>
       ) : error ? (

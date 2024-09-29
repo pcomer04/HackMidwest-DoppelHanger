@@ -83,7 +83,7 @@ const Recommendations = () => {
                 <div className="add-to-gallery">
                     <button type="button">Add to Gallery</button>
                 </div>
-                <div className="recommended-outfits">
+                <div className="recommended-outfits1">
                     {(
                         <div className="recommended-outfit">
                             <ImageDisplay cid={imageData.r1_val} />
@@ -91,13 +91,13 @@ const Recommendations = () => {
                         </div>
                     )}
                     {(
-                        <div className="recommended-outfit">
+                        <div className="recommended-outfit2">
                             <ImageDisplay cid={imageData.r2_val} />
                             <p className="recommendation-display-text">Recommended Outfit 2</p>
                         </div>
                     )}
                     {(
-                        <div className="recommended-outfit">
+                        <div className="recommended-outfit3">
                             <ImageDisplay cid={imageData.r3_val} />
                             <p className="recommendation-display-text">Recommended Outfit 3</p>
                         </div>
