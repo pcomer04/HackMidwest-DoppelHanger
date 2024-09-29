@@ -1,42 +1,10 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
+import userReducer from './reducers/userReducer';
 
-
-const persistedUser = localStorage.getItem('user');
-
-
-const initialState = {
-  user: persistedUser ? JSON.parse(persistedUser) : null, 
-};
-
-
-const LOGIN = 'LOGIN';
-const LOGOUT = 'LOGOUT';
-
-
-export const login = (userId, username) => ({
-  type: LOGIN,
-  payload: { userId, username },
+const rootReducer = combineReducers({
+  user: userReducer,
 });
 
-export const logout = () => ({
-  type: LOGOUT,
-});
-
-
-const authReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case LOGIN:
-  const { userId, username } = action.payload;
-  localStorage.setItem('user', JSON.stringify({ userId, username }));
-  return { ...state, user: { userId, username } };
-    case LOGOUT:
-      localStorage.removeItem('user'); 
-      return { ...state, user: null };
-    default:
-      return state;
-  }
-};
-
-const store = createStore(authReducer);
+const store = createStore(rootReducer);
 
 export default store;

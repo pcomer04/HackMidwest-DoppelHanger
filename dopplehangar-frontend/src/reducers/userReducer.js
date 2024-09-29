@@ -1,8 +1,8 @@
-import { LOGIN_SUCCESS } from '../actions/userActions';
+import { LOGIN_SUCCESS, LOGOUT } from '../actions/userActions';
 
 const initialState = {
-  userId: localStorage.getItem('userId') || null,
-  username: localStorage.getItem('username') || null, 
+  userId: null,
+  username: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -12,6 +12,12 @@ const userReducer = (state = initialState, action) => {
         ...state,
         userId: action.payload.userId,
         username: action.payload.username,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        userId: null,
+        username: null,
       };
     default:
       return state;
