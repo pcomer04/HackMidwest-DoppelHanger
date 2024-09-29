@@ -10,6 +10,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from .pinata.pinataUpload import uploadToPinata
 from .matching.image_compare import compare_image
+import os
 
 """
 {
@@ -86,17 +87,33 @@ class UploadView(APIView):
             # Call the function to upload to Pinata
             original_img_cid = uploadToPinata(image_file)
             original_key = PinataKey.objects.create(value=original_img_cid)
-            
             image_obj = Image.objects.create(user=request.user, uploaded_image=original_key)
             # send image to AI model and get images back
             processed_images = compare_image(image_file)
-            pinata_keys = []
+            print(processed_images)
+            keys = []
             for img, prob in processed_images.items():
-                processed_img_cid = uploadToPinata(img)
-                pinata_key = PinataKey.objects.create(value=processed_img_cid)
-                pinata_keys.append(pinata_key)
-            image_obj.returned_image.add(*pinata_keys)
+                processed_img_cid = ''
+                img_file_path = os.path.join("matching", "dataset", img)  # Corrected this line to use `img`
+                
+                try:
+                    with open(img_file_path, 'rb') as img_file:
+                        processed_img_cid = uploadToPinata(img_file)  # Ensure this function handles the file correctly
 
+                    # Create a PinataKey object with the returned CID
+                    pinata_key = PinataKey.objects.create(value=processed_img_cid)
+                    keys.append(pinata_key)
+                    
+                except FileNotFoundError:
+                    print(f"File not found: {img_file_path}")
+                except Exception as e:
+                    print(f"Error processing file {img_file_path}: {e}")
+
+            print(keys)
+            image_obj.returned_1 = keys[0]
+            image_obj.returned_2 = keys[1]
+            image_obj.returned_3 = keys[2]
+            image_obj.save()
             return Response({
                 "message": "succesfully uploaded and received hashes from pinata"
             }, status=201)
@@ -115,7 +132,7 @@ class UploadView(APIView):
     """
     def get(self, request):
         try:
-            images = Image.objects.filter(user_id=12)
+            images = Image.objects.filter().all().order_by('-upload_time')[:1]
             serialized_images = ImageSerializer(images, many=True)
             return Response(serialized_images.data, status=status.HTTP_200_OK)
         except Exception as e:

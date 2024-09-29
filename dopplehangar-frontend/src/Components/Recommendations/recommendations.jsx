@@ -1,64 +1,74 @@
-import React, { useEffect, useState } from "react"; // Import useEffect and useState
-import Navbar from "../Navbar/navbar";
-import "./recommendations.css";
-import { getImagePinata } from "../../API/image-api-get-pinata"; // Ensure this is the correct import
-import { getImageDatabase } from "../../API/image-api-get-database"; // Ensure this is the correct import
+import React, { useEffect, useState } from "react"; 
+import Navbar from "../Navbar/navbar"; 
+import "./recommendations.css"; 
+import { getImageDatabase } from "../../API/image-api-get-database"; 
+import ImageDisplay from "../ImageDisplay/imagedisplay"; // Ensure the correct import
 
 const Recommendations = () => {
-    const [imageUrls, setImageUrls] = useState([]); // Changed to use an array for multiple images
-    const [imageData, setImageData] = useState({ uploaded_image: '', returned_image: [] }); // State for image data
+    const [imageData, setImageData] = useState({
+        uploaded_image: null,
+        returned_1: null,
+        returned_2: null,
+        returned_3: null
+    });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchImageData = async () => {
             try {
-                const data = await getImageDatabase(); // Fetch image data asynchronously
-                console.log(data);
-                setImageData(data); // Set the fetched data to state
+                console.log("Fetching image data...");
+                const data = await getImageDatabase();
+                console.log("Fetched data:", data.uploaded_image?.value);
+
+                // Check if data has the expected structure
+                if (data && typeof data === 'object') {
+                    const {
+                        uploaded_image = null,
+                        returned_1 = null,
+                        returned_2 = null,
+                        returned_3 = null
+                    } = data;
+
+                    // Log the destructured values to see what they are
+                    console.log("Destructured values:", { uploaded_image, returned_1, returned_2, returned_3 });
+                    const up_val = uploaded_image.value;
+                    const r1_val = returned_1.value;
+                    const r2_val = returned_2.value;
+                    const r3_val = returned_3.value;
+                    // Update state with structured data
+                    setImageData({
+                        up_val,
+                        r1_val,
+                        r2_val,
+                        r3_val,
+                    });
+                } else {
+                    console.error("Unexpected data structure:", data);
+                }
             } catch (error) {
                 console.error("Error fetching image data:", error);
+                setError(error);
+            } finally {
+                setLoading(false);
             }
         };
+
         fetchImageData();
-    }, []); // Run once on component mount
+    }, []);
 
+    // Log the image data after it has been set
     useEffect(() => {
-        const fetchImages = async () => {
-            const urls = [];
+        console.log("Image data updated:", imageData);
+    }, [imageData]);
 
-            // Fetch the original uploaded image
-            if (imageData.uploaded_image) {
-                try {
-                    const originalBlob = await getImagePinata(imageData.uploaded_image); // Fetch image from Pinata
-                    const originalUrl = URL.createObjectURL(originalBlob); // Create a URL for the blob
-                    urls.push(originalUrl);
-                } catch (error) {
-                    console.error('Error fetching original image:', error);
-                }
-            }
+    if (loading) {
+        return <p>Loading...</p>;
+    }
 
-            // Fetch returned images
-            for (const cid of imageData.returned_image) {
-                try {
-                    const blob = await getImagePinata(cid); // Fetch image by CID
-                    const url = URL.createObjectURL(blob); // Create a URL for the blob
-                    urls.push(url);
-                } catch (error) {
-                    console.error(`Error fetching image with CID ${cid}:`, error);
-                }
-            }
-
-            setImageUrls(urls); // Set the fetched URLs to state
-        };
-
-        if (imageData.returned_image.length > 0 || imageData.uploaded_image) { // Check if there's anything to fetch
-            fetchImages();
-        }
-        console.log(imageUrls);
-        // Clean up URL objects on component unmount
-        return () => {
-            imageUrls.forEach(url => URL.revokeObjectURL(url));
-        };
-    }, [imageData]); // Dependency on imageData
+    if (error) {
+        return <p>Error fetching data: {error.message}</p>;
+    }
 
     return (
         <div>
@@ -66,17 +76,33 @@ const Recommendations = () => {
             <div className="recommendations-container">
                 <div className="user-photo-container">
                     <p>Your Photo</p>
-                    {imageUrls[0] && <img src={imageUrls[0]} alt="Uploaded" />}
+                    {(
+                        <ImageDisplay cid={imageData.up_val} />
+                    )}
                 </div>
                 <div className="add-to-gallery">
-                    <button type="button" /* Add onClick handler here */>Add to Gallery</button>
+                    <button type="button">Add to Gallery</button>
                 </div>
-                {imageUrls.slice(1).map((url, index) => ( 
-                    <div key={index} className={`recommended-outfits${index + 1}`}>
-                        <img src={url} alt={`Recommended Outfit #${index + 1}`} />
-                        <p className="recommendation-display-text">Recommended Outfit #{index + 1}</p>
-                    </div>
-                ))}
+                <div className="recommended-outfits">
+                    {(
+                        <div className="recommended-outfit">
+                            <ImageDisplay cid={imageData.r1_val} />
+                            <p className="recommendation-display-text">Recommended Outfit 1</p>
+                        </div>
+                    )}
+                    {(
+                        <div className="recommended-outfit">
+                            <ImageDisplay cid={imageData.r2_val} />
+                            <p className="recommendation-display-text">Recommended Outfit 2</p>
+                        </div>
+                    )}
+                    {(
+                        <div className="recommended-outfit">
+                            <ImageDisplay cid={imageData.r3_val} />
+                            <p className="recommendation-display-text">Recommended Outfit 3</p>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

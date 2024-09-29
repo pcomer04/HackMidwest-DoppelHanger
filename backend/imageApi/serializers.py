@@ -1,19 +1,27 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Image
+from .models import Image, PinataKey
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email']
 
+class PinataKeySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PinataKey
+        fields = ['id', 'value']  # Include any fields you want to expose
+
 class ImageSerializer(serializers.ModelSerializer):
-    uploaded_image = serializers.StringRelatedField()  
-    returned_image = serializers.StringRelatedField(many=True)
-    
+    uploaded_image = PinataKeySerializer()
+    returned_1 = PinataKeySerializer(allow_null=True)
+    returned_2 = PinataKeySerializer(allow_null=True)
+    returned_3 = PinataKeySerializer(allow_null=True)
+
     class Meta:
         model = Image
-        fields = ['uploaded_image', 'returned_image', 'upload_time']
+        fields = ['id', 'user', 'upload_time', 'uploaded_image', 'returned_1', 'returned_2', 'returned_3']
+
 
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:

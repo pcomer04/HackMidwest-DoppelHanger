@@ -8,8 +8,6 @@ api_key = os.getenv('API-KEY')
 secret_key = os.getenv('API-SECRET')
 PINATA_URL = "https://api.pinata.cloud/pinning/pinFileToIPFS"
 
-
-
 def uploadToPinata(image_file):
     headers = {
         "pinata_api_key": str(api_key),
@@ -24,4 +22,3 @@ def uploadToPinata(image_file):
         return ipfs_hash
     else:
         raise Exception(f"Error uploading to Pinata: {response.text}")
-    

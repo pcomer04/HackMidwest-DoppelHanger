@@ -11,24 +11,13 @@ const Upload = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleFileChange = async (event) => {
+  const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file && file.type === "image/jpeg") {
       setImage(file);
     } else {
       alert("Please upload a JPG file.");
     }
-
-    try {
-      const data = await imageUpload(image);
-      console.log("Success:", data);
-      alert("File uploaded successfully!");
-      setImage(null);
-    } catch (error) {
-      console.error("Error:", error);
-      alert("File upload failed.");
-    }
-
   };
 
   const handleSubmit = async (event) => {
@@ -38,19 +27,19 @@ const Upload = () => {
       return;
     }
 
-    setLoading(true);
+    setLoading(true); // Start loading state
 
     try {
       const data = await imageUpload(image);
       console.log("Success:", data);
       alert("File uploaded successfully!");
-      setImage(null);
-      navigate("/recommendations")
+      setImage(null); // Reset the image after successful upload
+      navigate("/recommendations"); // Redirect after successful upload
     } catch (error) {
       console.error("Error:", error);
       alert("File upload failed.");
     } finally {
-      setLoading(false); 
+      setLoading(false); // Stop loading state
     }
   };
 
@@ -70,15 +59,18 @@ const Upload = () => {
             <img src={uploadSymbol} alt="Upload" className="upload-symbol" />
             <p>Drag Your Photo Here</p>
           </label>
+          <button type="submit" className="upload-btn">Upload</button>
         </form>
+      </div>
 
-        {loading && (
+      {loading && (
+        <div className="loading-overlay">
           <div className="loading">
             <img src={spinny} alt="Loading..." className="loading-spinner" />
             <p>Uploading...</p>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
