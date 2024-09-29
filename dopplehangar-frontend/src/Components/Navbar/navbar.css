@@ -1,0 +1,30 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    color: #000; /* Set text color to black */
+    padding: 1rem;
+    height: 120px;
+    width: 100%;
+  }
+  
+  .navbar-left, .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-left .logo img {
+    width: 410px;
+    height: 75px;
+  } 
+
+  .navbar-right a {
+    margin-left: 60px;
+    color: #63BB9D;
+    font-weight: bold;
+    font-size: 30px;
+  }
+
+  
+  

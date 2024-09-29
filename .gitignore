@@ -1,3 +1,4 @@
+#Environment Files
 
 # dependencies
 /dopplehangar-frontend/node_modules
@@ -22,3 +23,8 @@
 /dopplehangar-frontend/yarn-error.log*
 
 /backend/venv
+/backend/.env
+dq.sqlite3
+__pycache__/
+
+node_modules/
