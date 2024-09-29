@@ -70,6 +70,7 @@ class UploadView(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request):
+        print("HIIIIII")
         image_file = request.FILES.get('image')
         if not image_file:
             return Response({"error": "no image uploaded"}, status=400)

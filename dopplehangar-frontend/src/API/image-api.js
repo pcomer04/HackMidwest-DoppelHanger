@@ -1,20 +1,15 @@
-// src/API/image-api.js
-import axios from "axios";
+export const imageUpload = async (image) => {
+    const formData = new FormData();
+    formData.append("image", image);
 
-const PINATA_API_KEY = 'your_pinata_api_key';  // Replace with your Pinata API Key
-const PINATA_SECRET_API_KEY = 'your_pinata_secret_api_key';  // Replace with your Pinata Secret API Key
-
-// src/API/image-api.js
-
-export const pinataUpload = async (imageFile) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          IpfsHash: "QmTestHash1234567890", // Mock IPFS hash
-          PinSize: 12345,
-          Timestamp: new Date().toISOString(),
-        });
-      }, 1000); // Simulate a 1-second network delay
+    const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/upload/`, {
+        method: "POST",
+        body: formData,
     });
-};
-  
+
+    if (!response.ok) {
+        throw new Error("Network response was not ok");
+    }
+
+    return response.json();
+}

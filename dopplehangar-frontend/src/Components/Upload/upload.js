@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { pinataUpload } from "../../API/image-api";  // Import the Pinata upload function
+import { imageUpload } from "../../API/image-api";  // Import the Pinata upload function
 import Navbar from "../Navbar/navbar";
 import "./upload.css";
 import uploadSymbol from "../../Assets/upload-symbol-2.svg";
@@ -13,7 +13,7 @@ const Upload = () => {
       setImage(file);
 
       try {
-        const data = await pinataUpload(file);  // Trigger upload immediately
+        const data = await imageUpload(file);  // Trigger upload immediately
         console.log("Upload Success");
         console.log("File uploaded to IPFS:", data);  // Optional: log the IPFS data for debugging
       } catch (error) {
