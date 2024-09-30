@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-# HackMidwest-Clothing-Recommendation-WebApp
+# HackMidwest-AI-Clothing-Recommendation-WebApp
 This is our project for hack midwest 2024
-=======
+===============================================
 # Welcome to Hack Midwest 2024!
 <br /><br />
 
@@ -22,7 +21,6 @@ Ensure you have reviewed the [Rules & FAQ](https://hackmidwest.com/#faq)
 2.   Peyton Comer || pcomer2@huskers.unl.edu || pcomer04
 3.   Charlie McIver || cmciver2@huskers.unl.edu || TheDevChuck
 4.   Aidan McQueen || mcqueen@uark.edu || AMcQueen95
-5.
 
 <br /><br />
 
