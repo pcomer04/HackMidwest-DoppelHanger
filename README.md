@@ -22,6 +22,8 @@ Ensure you have reviewed the [Rules & FAQ](https://hackmidwest.com/#faq)
 3.   Charlie McIver || cmciver2@huskers.unl.edu || TheDevChuck
 4.   Aidan McQueen || mcqueen@uark.edu || AMcQueen95
 
+Desing Mock-Ups Created by Lindsey Johnson || ljohnson142@huskers.unl.edu || https://lindseymjohnson.myportfolio.com/stylesync
+
 <br /><br />
 
 
