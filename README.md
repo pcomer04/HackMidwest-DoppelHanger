@@ -1,5 +1,4 @@
-# HackMidwest-AI-Clothing-Recommendation-WebApp
-This is our project for hack midwest 2024
+This is our project for Hack Midwest 2024
 ===============================================
 # Welcome to Hack Midwest 2024!
 <br /><br />
