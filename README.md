@@ -50,7 +50,7 @@ Our app is a stylist assistant that allows users to upload images to our website
 - [ ]  brAIn Rot Challenge
 
 # Design Mock-Up
-[Find Here]([doc:linking-to-pages#anchor-links](https://xd.adobe.com/view/f5150eab-ac7f-4cd8-993f-e3d1b15afdde-a046/))
+[Find Here](doc:linking-to-pages#anchor-links](https://xd.adobe.com/view/f5150eab-ac7f-4cd8-993f-e3d1b15afdde-a046/)
 
 # requirements
 1. install libraries:
